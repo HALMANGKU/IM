@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>함께 성장하는 행복한 3학년 1반</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: 'Jua' for cute headers, 'Noto Sans KR' for body text -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome for cute icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        pastel: {
+                            yellow: '#fff4cc',
+                            blue: '#d4ebf2',
+                            pink: '#ffd9e6',
+                            green: '#dcf2e3',
+                            bg: '#fffdf7',
+                            text: '#4a4a4a'
+                        }
+                    },
+                    fontFamily: {
+                        jua: ['Jua', 'sans-serif'],
+                        sans: ['Noto Sans KR', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body {
+            background-color: #fffdf7;
+            /* 귀여운 도트 무늬 배경 */
+            background-image: radial-gradient(#f0e6d2 2px, transparent 2px);
+            background-size: 24px 24px;
+            color: #4a4a4a;
+        }
+
+        /* 메인 메뉴 카드 호버 애니메이션 */
+        .menu-card {
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        .menu-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.08);
+        }
+
+        /* 아이콘 바운스 애니메이션 */
+        .menu-card:hover i {
+            animation: bounceIcon 0.6s infinite alternate;
+        }
+        @keyframes bounceIcon {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-8px); }
+        }
+
+        /* 화면 전환 애니메이션 */
+        .view-section {
+            display: none;
+            opacity: 0;
+        }
+        .view-section.active {
+            display: block;
+            animation: slideUpFade 0.5s forwards ease-out;
+        }
+        @keyframes slideUpFade {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* 버튼 및 리스트 스타일 */
+        .btn-cute {
+            transition: all 0.2s;
+        }
+        .btn-cute:active {
+            transform: scale(0.95);
+        }
+        
+        /* 모달 스타일 */
+        #modal-overlay {
+            backdrop-filter: blur(4px);
+        }
+    </style>
+</head>
+<body class="font-sans antialiased min-h-screen flex flex-col selection:bg-pastel-pink selection:text-gray-900">
+
+    <!-- Header -->
+    <header class="bg-white shadow-sm sticky top-0 z-40 bg-opacity-90 backdrop-blur-md">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <div class="flex items-center gap-3 cursor-pointer" onclick="navigate('home')">
+                <div class="w-12 h-12 bg-pastel-yellow rounded-full flex items-center justify-center text-2xl shadow-inner">
+                    🌱
+                </div>
+                <h1 class="font-jua text-2xl sm:text-3xl text-gray-800 tracking-wide hover:text-orange-400 transition-colors">
+                    3학년 1반
+                </h1>
+            </div>
+            <nav class="hidden md:flex gap-6 font-jua text-lg">
+                <button onclick="navigate('notice')" class="hover:text-orange-400 transition-colors">알림장</button>
+                <button onclick="navigate('board')" class="hover:text-blue-400 transition-colors">게시판</button>
+                <button onclick="navigate('album')" class="hover:text-pink-400 transition-colors">앨범</button>
+                <button onclick="navigate('resource')" class="hover:text-green-500 transition-colors">자료실</button>
+            </nav>
+            <button class="md:hidden text-2xl text-gray-600" onclick="showModal('모바일 메뉴는 준비 중입니다! 삐약🐥')">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="flex-grow max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
+        
+        <!-- 1. Home View -->
+        <section id="view-home" class="view-section active">
+            <!-- Hero Banner -->
+            <div class="bg-white rounded-3xl p-8 sm:p-12 text-center shadow-lg border-4 border-white mb-10 relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-full h-3 bg-gradient-to-r from-pastel-pink via-pastel-yellow to-pastel-blue"></div>
+                <h2 class="font-jua text-3xl sm:text-4xl md:text-5xl text-gray-800 mb-4 leading-tight">
+                    함께 성장하는 행복한<br>
+                    <span class="text-orange-500">3학년 1반</span> 교실입니다! 🎉
+                </h2>
+                <p class="text-gray-600 text-lg sm:text-xl font-medium mb-8">
+                    서로 존중하고 배려하며 매일매일 쑥쑥 자라나는 우리들 🌻
+                </p>
+                <div class="inline-block bg-pastel-bg border-2 border-dashed border-gray-300 rounded-xl py-3 px-6 text-gray-700 font-bold">
+                    <i class="fa-regular fa-calendar-check text-orange-400 mr-2"></i> 
+                    오늘의 칭찬 목표 : 친구에게 고운 말 쓰기
+                </div>
+            </div>
+
+            <!-- Menu Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- 알림장 -->
+                <div onclick="navigate('notice')" class="menu-card cursor-pointer bg-pastel-yellow rounded-3xl p-6 shadow-md border-2 border-white flex flex-col items-center text-center group">
+                    <div class="w-20 h-20 bg-white rounded-full flex items-center justify-center text-4xl text-yellow-500 mb-4 shadow-sm">
+                        <i class="fa-solid fa-book-open"></i>
+                    </div>
+                    <h3 class="font-jua text-2xl text-gray-800 mb-2">알림장</h3>
+                    <p class="text-sm text-gray-600">내일의 준비물과 숙제를 확인해요!</p>
+                </div>
+
+                <!-- 게시판 -->
+                <div onclick="navigate('board')" class="menu-card cursor-pointer bg-pastel-blue rounded-3xl p-6 shadow-md border-2 border-white flex flex-col items-center text-center group">
+                    <div class="w-20 h-20 bg-white rounded-full flex items-center justify-center text-4xl text-blue-400 mb-4 shadow-sm">
+                        <i class="fa-solid fa-comments"></i>
+                    </div>
+                    <h3 class="font-jua text-2xl text-gray-800 mb-2">우리반 게시판</h3>
+                    <p class="text-sm text-gray-600">친구들과 즐거운 이야기를 나누어요!</p>
+                </div>
+
+                <!-- 앨범 -->
+                <div onclick="navigate('album')" class="menu-card cursor-pointer bg-pastel-pink rounded-3xl p-6 shadow-md border-2 border-white flex flex-col items-center text-center group">
+                    <div class="w-20 h-20 bg-white rounded-full flex items-center justify-center text-4xl text-pink-400 mb-4 shadow-sm">
+                        <i class="fa-solid fa-camera-retro"></i>
+                    </div>
+                    <h3 class="font-jua text-2xl text-gray-800 mb-2">추억 앨범</h3>
+                    <p class="text-sm text-gray-600">반짝이는 우리의 일상을 구경해요!</p>
+                </div>
+
+                <!-- 자료실 -->
+                <div onclick="navigate('resource')" class="menu-card cursor-pointer bg-pastel-green rounded-3xl p-6 shadow-md border-2 border-white flex flex-col items-center text-center group">
+                    <div class="w-20 h-20 bg-white rounded-full flex items-center justify-center text-4xl text-green-500 mb-4 shadow-sm">
+                        <i class="fa-solid fa-folder-open"></i>
+                    </div>
+                    <h3 class="font-jua text-2xl text-gray-800 mb-2">학습 자료실</h3>
+                    <p class="text-sm text-gray-600">공부에 도움이 되는 자료가 가득!</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. Notice View (알림장) -->
+        <section id="view-notice" class="view-section">
+            <div class="bg-white rounded-3xl p-6 sm:p-10 shadow-lg border-t-8 border-pastel-yellow">
+                <div class="flex items-center justify-between mb-8">
+                    <h2 class="font-jua text-3xl text-gray-800 flex items-center gap-3">
+                        <i class="fa-solid fa-book-open text-yellow-500"></i> 오늘의 알림장
+                    </h2>
+                    <button onclick="navigate('home')" class="text-gray-400 hover:text-gray-700 bg-gray-100 p-2 rounded-full w-10 h-10 flex items-center justify-center transition">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+                
+                <div class="bg-yellow-50 rounded-2xl p-6 mb-6">
+                    <h3 class="font-bold text-lg mb-4 text-gray-800">2026년 11월 12일 (목)</h3>
+                    <ul class="space-y-3 text-gray-700">
+                        <li class="flex items-start gap-2">
+                            <span class="text-orange-500 mt-1"><i class="fa-solid fa-check-circle"></i></span>
+                            <span>수학 익힘책 45~46쪽 풀고 채점해오기</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-orange-500 mt-1"><i class="fa-solid fa-check-circle"></i></span>
+                            <span>미술 준비물: 크레파스, 사인펜, 스케치북 챙기기</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-orange-500 mt-1"><i class="fa-solid fa-check-circle"></i></span>
+                            <span>일교차가 크니 겉옷 꼭 챙겨입고 오기 🧥</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="text-center">
+                    <button onclick="showModal('선생님께 확인 도장을 요청했습니다! 쾅!')" class="btn-cute bg-pastel-yellow text-gray-800 font-jua text-lg px-8 py-3 rounded-full shadow-sm hover:shadow-md border border-yellow-200">
+                        선생님 확인 받기
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Board View (게시판) -->
+        <section id="view-board" class="view-section">
+            <div class="bg-white rounded-3xl p-6 sm:p-10 shadow-lg border-t-8 border-pastel-blue">
+                <div class="flex items-center justify-between mb-8">
+                    <h2 class="font-jua text-3xl text-gray-800 flex items-center gap-3">
+                        <i class="fa-solid fa-comments text-blue-400"></i> 우리반 게시판
+                    </h2>
+                    <button onclick="navigate('home')" class="text-gray-400 hover:text-gray-700 bg-gray-100 p-2 rounded-full w-10 h-10 flex items-center justify-center transition">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+                
+                <div class="space-y-4">
+                    <!-- 글 리스트 -->
+                    <div class="flex justify-between items-center p-4 bg-gray-50 rounded-xl hover:bg-blue-50 transition cursor-pointer" onclick="showModal('글 읽기 기능은 준비 중입니다.')">
+                        <div class="flex gap-4 items-center">
+                            <span class="bg-blue-100 text-blue-600 text-xs font-bold px-2 py-1 rounded">질문</span>
+                            <span class="font-medium text-gray-800">내일 체육복 입고 오나요?</span>
+                        </div>
+                        <span class="text-sm text-gray-500">김지훈</span>
+                    </div>
+                    <div class="flex justify-between items-center p-4 bg-gray-50 rounded-xl hover:bg-blue-50 transition cursor-pointer" onclick="showModal('글 읽기 기능은 준비 중입니다.')">
+                        <div class="flex gap-4 items-center">
+                            <span class="bg-pink-100 text-pink-600 text-xs font-bold px-2 py-1 rounded">자랑</span>
+                            <span class="font-medium text-gray-800">주말에 놀이공원 다녀왔어요! 🎢</span>
+                        </div>
+                        <span class="text-sm text-gray-500">이수아</span>
+                    </div>
+                    <div class="flex justify-between items-center p-4 bg-gray-50 rounded-xl hover:bg-blue-50 transition cursor-pointer" onclick="showModal('글 읽기 기능은 준비 중입니다.')">
+                        <div class="flex gap-4 items-center">
+                            <span class="bg-green-100 text-green-600 text-xs font-bold px-2 py-1 rounded">자유</span>
+                            <span class="font-medium text-gray-800">급식 메뉴 진짜 맛있었어요 ㅠㅠ</span>
+                        </div>
+                        <span class="text-sm text-gray-500">박도윤</span>
+                    </div>
+                </div>
+                
+                <div class="mt-8 flex justify-end">
+                    <button onclick="showModal('글쓰기 권한을 확인해주세요!')" class="btn-cute bg-pastel-blue text-gray-800 font-jua text-lg px-6 py-2 rounded-full shadow-sm hover:shadow-md border border-blue-200 flex items-center gap-2">
+                        <i class="fa-solid fa-pen"></i> 글쓰기
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. Album View (앨범) -->
+        <section id="view-album" class="view-section">
+            <div class="bg-white rounded-3xl p-6 sm:p-10 shadow-lg border-t-8 border-pastel-pink">
+                <div class="flex items-center justify-between mb-8">
+                    <h2 class="font-jua text-3xl text-gray-800 flex items-center gap-3">
+                        <i class="fa-solid fa-camera-retro text-pink-400"></i> 추억 앨범
+                    </h2>
+                    <button onclick="navigate('home')" class="text-gray-400 hover:text-gray-700 bg-gray-100 p-2 rounded-full w-10 h-10 flex items-center justify-center transition">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+                
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                    <!-- 사진 더미 데이터 -->
+                    <div class="relative group cursor-pointer overflow-hidden rounded-2xl" onclick="showModal('사진 확대 기능은 준비 중입니다 📸')">
+                        <img src="https://placehold.co/400x300/ffd9e6/4a4a4a?text=체육대회+1" alt="체육대회" class="w-full h-40 object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-40 text-white p-2 text-sm opacity-0 group-hover:opacity-100 transition">신나는 체육대회</div>
+                    </div>
+                    <div class="relative group cursor-pointer overflow-hidden rounded-2xl" onclick="showModal('사진 확대 기능은 준비 중입니다 📸')">
+                        <img src="https://placehold.co/400x300/dcf2e3/4a4a4a?text=현장체험학습" alt="현장체험학습" class="w-full h-40 object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-40 text-white p-2 text-sm opacity-0 group-hover:opacity-100 transition">가을 현장체험학습</div>
+                    </div>
+                    <div class="relative group cursor-pointer overflow-hidden rounded-2xl" onclick="showModal('사진 확대 기능은 준비 중입니다 📸')">
+                        <img src="https://placehold.co/400x300/d4ebf2/4a4a4a?text=미술시간" alt="미술시간" class="w-full h-40 object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-40 text-white p-2 text-sm opacity-0 group-hover:opacity-100 transition">우리의 작품들</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. Resource View (자료실) -->
+        <section id="view-resource" class="view-section">
+            <div class="bg-white rounded-3xl p-6 sm:p-10 shadow-lg border-t-8 border-pastel-green">
+                <div class="flex items-center justify-between mb-8">
+                    <h2 class="font-jua text-3xl text-gray-800 flex items-center gap-3">
+                        <i class="fa-solid fa-folder-open text-green-500"></i> 학습 자료실
+                    </h2>
+                    <button onclick="navigate('home')" class="text-gray-400 hover:text-gray-700 bg-gray-100 p-2 rounded-full w-10 h-10 flex items-center justify-center transition">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="border-2 border-green-100 rounded-2xl p-5 hover:border-green-300 transition bg-green-50">
+                        <div class="flex justify-between items-start mb-3">
+                            <h3 class="font-bold text-gray-800"><i class="fa-regular fa-file-pdf text-red-400 mr-2"></i>곱셈구구 연습지.pdf</h3>
+                            <button onclick="showModal('다운로드가 시작됩니다. (가상)')" class="text-green-600 hover:text-green-800"><i class="fa-solid fa-download"></i></button>
+                        </div>
+                        <p class="text-sm text-gray-600">매일 하루 한 장씩 풀면서 곱셈구구를 완벽하게 외워보아요!</p>
+                    </div>
+                    
+                    <div class="border-2 border-green-100 rounded-2xl p-5 hover:border-green-300 transition bg-green-50">
+                        <div class="flex justify-between items-start mb-3">
+                            <h3 class="font-bold text-gray-800"><i class="fa-solid fa-music text-purple-400 mr-2"></i>우리반 학급가.mp3</h3>
+                            <button onclick="showModal('다운로드가 시작됩니다. (가상)')" class="text-green-600 hover:text-green-800"><i class="fa-solid fa-download"></i></button>
+                        </div>
+                        <p class="text-sm text-gray-600">음악 시간에 배운 우리반 노래 음원 파일입니다.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="mt-auto py-8 text-center text-gray-500 text-sm border-t border-gray-200">
+        <p class="font-jua text-lg mb-2">함께 자라는 3학년 1반</p>
+        <p>© 2026 3학년 1반 선생님과 아이들. All rights reserved.</p>
+    </footer>
+
+    <!-- Custom Modal (알림창 대체) -->
+    <div id="modal-overlay" class="fixed inset-0 bg-black bg-opacity-30 z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl p-8 max-w-sm w-full shadow-2xl transform scale-95 transition-transform duration-300 flex flex-col items-center text-center">
+            <div class="w-16 h-16 bg-pastel-yellow rounded-full flex items-center justify-center text-3xl mb-4">
+                🐥
+            </div>
+            <h3 class="font-jua text-xl text-gray-800 mb-4" id="modal-message">메시지 내용</h3>
+            <button onclick="closeModal()" class="btn-cute bg-gray-800 text-white font-bold py-2 px-8 rounded-full hover:bg-gray-700">
+                확인
+            </button>
+        </div>
+    </div>
+
+    <!-- JavaScript for Navigation and Modal -->
+    <script>
+        // 네비게이션 기능 (화면 전환)
+        function navigate(viewId) {
+            // 모든 섹션 숨기기
+            const sections = document.querySelectorAll('.view-section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // 선택한 섹션 보이기
+            const targetSection = document.getElementById('view-' + viewId);
+            if(targetSection) {
+                targetSection.classList.add('active');
+            }
+            
+            // 스크롤 상단으로 이동
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // 커스텀 모달 열기
+        function showModal(message) {
+            const overlay = document.getElementById('modal-overlay');
+            const msgElement = document.getElementById('modal-message');
+            const modalBox = overlay.querySelector('div');
+            
+            msgElement.innerText = message;
+            overlay.classList.remove('hidden');
+            
+            // 약간의 지연 후 애니메이션 적용 (scale up)
+            setTimeout(() => {
+                modalBox.classList.remove('scale-95');
+                modalBox.classList.add('scale-100');
+            }, 10);
+        }
+
+        // 커스텀 모달 닫기
+        function closeModal() {
+            const overlay = document.getElementById('modal-overlay');
+            const modalBox = overlay.querySelector('div');
+            
+            modalBox.classList.remove('scale-100');
+            modalBox.classList.add('scale-95');
+            
+            // 애니메이션 후 숨기기
+            setTimeout(() => {
+                overlay.classList.add('hidden');
+            }, 200);
+        }
+    </script>
+</body>
+</html>
